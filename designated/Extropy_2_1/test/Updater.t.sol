@@ -31,6 +31,7 @@ contract UpdaterTest is Test {
         verifier = new Verifier();
         batchVerifier = new BatchVerifier();
         updater = new Updater(verifier, batchVerifier);
+        vm.warp(1682063622);
     }
 
     function testSetHeader() public {
@@ -255,7 +256,6 @@ contract UpdaterTest is Test {
     }
 
     function testGetCurrentPeriod() public {
-        vm.warp(1682063593);
         uint64 period = updater.getSyncCommitteePeriodFromSlot(
             updater.getCurrentSlot()
         );
@@ -263,7 +263,6 @@ contract UpdaterTest is Test {
     }
 
     function testSetSyncCommitteeRoot() public {
-        vm.warp(1682063622);
         uint64 period = updater.getSyncCommitteePeriodFromSlot(
             updater.getCurrentSlot()
         );

@@ -65,6 +65,7 @@ uint256 constant SLOTS_PER_SYNC_COMMITTEE_PERIOD = 256 * 32;
 contract Updater {
     mapping(bytes32 stateRoot => Header header) headerDAG;
     mapping(uint256 => bytes32) public syncCommitteeRootByPeriod;
+    LCS private lcs;
 
     Verifier private verifier;
     BatchVerifier private batchVerifier;
@@ -108,8 +109,25 @@ contract Updater {
             return false;
         }
 
+        // update LCS
+        _updateLCS(blockHeader);
+
         _addHeader(blockHeader);
         return true;
+    }
+
+    function _updateLCS(Header calldata blockHeader) private {
+        // update LCS
+        uint64 slot = getCurrentSlot();
+        uint64 period = getSyncCommitteePeriodFromSlot(slot);
+        lcs = LCS({
+            currentSyncCommittee: _getSyncCommitteeAtPeriod(period),
+            nextSyncCommittee: _getSyncCommitteeAtPeriod(0),
+            finalisedHeader: blockHeader,
+            optimisticHeader: blockHeader,
+            previousMaxActiveParticipants: 1,
+            currentMaxActiveParticipants: 1
+        });
     }
 
     function batchHeaderUpdate(
@@ -119,7 +137,9 @@ contract Updater {
         if (!batchVerifier.verifyProof(proof.a, proof.b, proof.c, proof.input)) {
             return false;
         }
+
         uint numHeaders = headers.length;
+        _updateLCS(headers[numHeaders - 1]);
         // add valid headers
         for (uint ii = 0; ii < numHeaders; ii++) {
             _addHeader(headers[ii]);
@@ -132,15 +152,6 @@ contract Updater {
     ) public view returns (HeaderReturn memory) {
         Header memory header = headerDAG[stateRoot];
         bool found = false;
-
-        LCS memory lcs = LCS({
-            currentSyncCommittee: _getSyncCommitteeAtHeight(0),
-            nextSyncCommittee: _getSyncCommitteeAtHeight(0),
-            finalisedHeader: header,
-            optimisticHeader: header,
-            previousMaxActiveParticipants: 1,
-            currentMaxActiveParticipants: 1
-        });
 
         if (header.isValid) {
             found = true;
@@ -155,8 +166,8 @@ contract Updater {
         return headerReturn;
     }
 
-    function _getSyncCommitteeAtHeight(
-        uint256 height
+    function _getSyncCommitteeAtPeriod(
+        uint64 period
     ) internal view returns (syncCommittee memory) {
         // return dummy value for now
         return
