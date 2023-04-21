@@ -25,6 +25,8 @@ cargo test
 
 # Write up
 
+The file structure of the project is as follows:
+
 ```
 .
 ├── README.md
@@ -32,3 +34,5 @@ cargo test
 ├── eth2gnosis
 └── target
 ```
+
+This is
