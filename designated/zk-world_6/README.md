@@ -58,5 +58,6 @@ When the ZK proof itself is also verified via the `AxiomProofVerifier`, we can s
 
 # Additional Resources
 
-- [Presentation](./L1StateOracle.pdf)
+- [Presentation deck](./L1StateOracle.pdf)
+- [Presentation video](https://www.youtube.com/watch?v=R9-u3S8hWoc)
 - https://hackmd.io/@mellowcroc/rJDwFTe7h
