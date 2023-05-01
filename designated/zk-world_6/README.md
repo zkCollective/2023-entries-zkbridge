@@ -22,15 +22,11 @@ Another is [Axiom](https://www.axiom.xyz/), which enables accessing any historic
 
 > Axiom ✍️ + Hashi 橋 => L1StateOracle (Time Travel 🚀 L1 state on L2)
 
-Our approach is to take the proof module of Axiom and to integrate it with Hashi. Below you can compare our architecture with Axiom's existing architecture.
-
-### Axiom Architecture
-
-<img src=https://i.imgur.com/iQzJbgU.png width="600">
+Our approach is to take the proof module of Axiom and to integrate it with Hashi. Below you can check out our architecture and how it leverages Axiom and Hashi's existing architecture.
 
 ### L1StateOracle Architecture
 
-<img src=https://i.imgur.com/pqEHWBE.png width="600">
+<img src=https://i.imgur.com/5jiBMOM.png width=800>
 
 As you can see in the flow chart above, we created new `AxiomStorageProof` and `AxiomProofVerifier` contracts and deployed them on L2.
 
@@ -59,5 +55,5 @@ When the ZK proof itself is also verified via the `AxiomProofVerifier`, we can s
 # Additional Resources
 
 - [Presentation deck](./L1StateOracle.pdf)
-- [Presentation video](https://www.youtube.com/watch?v=R9-u3S8hWoc)
+- [Presentation video](https://www.youtube.com/watch?v=-EjeropREx8)
 - https://hackmd.io/@mellowcroc/rJDwFTe7h
