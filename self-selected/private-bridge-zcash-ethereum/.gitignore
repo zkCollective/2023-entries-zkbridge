@@ -1,0 +1,9 @@
+.output/
+/node_modules
+main_cpp/
+*.r1cs
+artifacts/
+cache/
+output/
+powers_of_tau/
+/circom/tests/
