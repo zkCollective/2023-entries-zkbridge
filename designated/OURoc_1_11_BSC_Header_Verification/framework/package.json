@@ -1,0 +1,25 @@
+{
+  "name": "zk-collective-bounty",
+  "version": "0.0.1",
+  "description": "Framework of zkCollective bounty program",
+  "scripts": {
+    "test": "npm run test-circuit",
+    "test-circuit": "NODE_OPTIONS=--max_old_space_size=8000 mocha -r ts-node/register circuits/test/test*.ts"
+  },
+  "author": "Jingoshine",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "circom_tester": "^0.0.19",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "circom-pairing": "https://github.com/yi-sun/circom-pairing.git",
+    "circomlib": "^2.0.5",
+    "ethers": "^5.7.2",
+    "rlp": "^3.0.0"
+  }
+}
