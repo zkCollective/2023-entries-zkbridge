@@ -1,0 +1,28 @@
+[package]
+name = "eth-types"
+version = "0.1.0"
+authors = ["Near Inc <hello@nearprotocol.com>"]
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+rlp = "0.5.2"
+rlp-derive = "0.1.0"
+ethereum-types = { version = "0.14.1", features = ["rlp", "serialize"],  default-features = false }
+derive_more = "^0.99.2"
+eth2_ssz = { git = "https://github.com/aurora-is-near/lighthouse.git", tag = "v3.5.1-wasm", optional = true }
+eth2_ssz_derive = { git = "https://github.com/aurora-is-near/lighthouse.git", tag = "v3.5.1-wasm", optional = true }
+tree_hash = { git = "https://github.com/aurora-is-near/lighthouse.git", tag = "v3.5.1-wasm", optional = true }
+tree_hash_derive = { git = "https://github.com/aurora-is-near/lighthouse.git", tag = "v3.5.1-wasm", optional = true }
+eth2_serde_utils = { git = "https://github.com/aurora-is-near/lighthouse.git", tag = "v3.5.1-wasm", optional = true }
+hex = "0.4.0"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+serde-big-array = "0.4.1"
+
+[features]
+default = ["eth2"]
+eth2 = ["dep:eth2_ssz", "dep:eth2_ssz_derive", "dep:tree_hash", "dep:tree_hash_derive", "dep:eth2_serde_utils"]
